@@ -1,0 +1,84 @@
+<html>
+	<head>
+        <link href="http://fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet" type="text/css">
+        <link rel = "stylesheet" type = "text/css" href = "../static/css/style.css">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<div id = "header">
+			<div id = "hcontent">
+                {% if username %}
+                Hello {{ username }} 
+                |
+                <a href = "/profile/edit" class = "options"> Edit your profile </a>
+                |
+                <a href = "/logout" class = "options"> logout </a>
+                {% else %}
+				<a href = "/login" class = "options"> Log in </a>
+				 |
+				<a href = "/signup" class = "options"> Signup </a>
+                {% endif %}
+			</div>
+		</div>
+
+		<table align = 'center' width = "80%"  style="min-width : 500px;font-size:150%;">
+            <tr>
+                <td align="center" colspan="3" id="logo">Faculty Information Database</td>
+            </tr>
+            <tr id="search">
+                <form method = 'get' action = '/profile'>
+                    <td align="center" style="width:25%;"><i>Enter a faculty's name&nbsp;&nbsp;</i></td>
+                    <td align="center" style="width:65%;">
+                        <input type="text" id = 'query' autocomplete="off" onkeyup="suggest()" style="width:100%"/>
+                        <input type="hidden" name = "username" id = 'username' autocomplete="off" />
+                    </td>
+                    <td align="center" style="width:10%;"><input type="submit" id="submit" value="Get Info"/></td>
+                </form>
+            </tr>
+            <tr>
+                <td colspan="3" align='center' style="padding-top:2%;color:red;">
+                    {{error}}
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td id="suggestions" style="padding-top:2%;">
+                </td>
+                <td></td>
+            </tr>
+        </table>
+
+
+        <script>
+            var httpRequest;
+            var users;
+            
+            function suggest() {
+                httpRequest = new XMLHttpRequest();
+                httpRequest.onreadystatechange = setSuggestions;
+                httpRequest.open('GET', '/autocomplete?q=' + $('#query').val(), true);
+                httpRequest.send();
+            }
+            function setSuggestions() {
+                    if(httpRequest.readyState === 4 && httpRequest.status === 200) {
+                        users = JSON.parse(httpRequest.responseText);
+                        var user_list = '';
+                        users.forEach(function(user) {
+                            user_list += '<p>' + user[0] + '</p>';
+                        });
+                        $('#suggestions').html(user_list);
+                    }
+            }
+            $("form").submit(function() {
+                if(users[0][0] == $('#query').val())
+                    $("#username").val(users[0][1]);
+                else
+                    $("#username").val('');
+            });
+            
+            $('#suggestions').on('click', 'p', function() {
+                $('#query').val($(this).html());
+            });
+        </script>
+	</body>
+</html>

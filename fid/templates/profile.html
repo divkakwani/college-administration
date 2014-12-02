@@ -1,0 +1,77 @@
+
+<html>
+	<head>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+				<link rel = "stylesheet" type = "text/css" href = "../static/css/style.css">
+        <script>
+            function undisplayAll() {
+                $(".personal").css("display", "none");
+                $(".contact").css("display", "none");
+                $(".achievements").css("display", "none");
+            }
+
+            function display(class_name) {
+                undisplayAll();
+                $("." + class_name).css("display", "block");
+            }
+
+        </script>
+	</head>
+	<body>
+
+        <div id = "header">
+			<div id = "hcontent">
+                {% if username %}
+                Hello {{ username }} 
+                |
+                <a href = "/logout" class = "options"> logout </a>
+                {% else %}
+				<a href = "/login" class = "options"> Log in </a>
+				 |
+				<a href = "/signup" class = "options"> Signup </a>
+                {% endif %}
+			</div>
+		</div>
+
+        <table align = 'center' border="0px solid" width = "80%"  style="min-width : 500px; margin-top:1%;">
+            <tr>
+                <td colspan="2" align="center">
+                    <h1>{{profile.name}}</h1>
+                </td>
+            </tr>
+            <tr style="">
+                <td id="sidebar" width = "25%" style="vertical-align: top; padding-top:2%; ">
+                    <div  align = "center">
+                    <img src="/pic?username={{profile.id}}" height = "200px" align = "center"/>
+                    </div>
+                    <div id = 'menu'>
+                    <a href = "#" onclick="display('personal');">Personal</a>
+                    <a href = "#">Qualifications</a>
+                    <a href = "#" onclick="display('achievements');">Achievements</a>
+                    <a href = "#" onclick="display('publications');">Publications</a>
+                    <a href = "#" onclick="display('contact');">Contact</a>
+                    </div>
+                </td>
+                <td  style="padding-left : 50px;">
+                    <div id="content">
+                        <p class  = "personal"> Name :  {{profile.name}}</p>
+                        <p class  = "personal"> ID :  {{profile.ID}}</p>
+                        <p class  = "personal"> Age : {{profile.age}}</p>
+                        <p class = "contact" > Email : {{profile.email}} </p>
+                        <p class = "achievements" >Achievements :</p>
+                        <p class = "contact" > Phone : </p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        {% if username %}
+        <div id="header">
+            <div id="hcontent">
+                <a href="/profile/edit">Edit your profile</a>
+            </div>
+        </div>
+        {% endif %}
+
+    </body>
+</html>

@@ -1,0 +1,80 @@
+
+<html>
+	<head>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <link rel = "stylesheet" type = "text/css" href = "../static/css/style.css">
+        <style>
+            input {
+                padding: 2px;
+            }
+        </style>
+        <script>
+            function undisplayAll() {
+                $(".personal").css("display", "none");
+                $(".contact").css("display", "none");
+                $(".achievements").css("display", "none");
+            }
+
+            function display(class_name) {
+                undisplayAll();
+                $("." + class_name).css("display", "block");
+            }
+
+        </script>
+	</head>
+	<body>
+
+        <div id = "header">
+			<div id = "hcontent">
+                {% if username %}
+                Hello {{ username }} 
+                |
+                <a href = "/logout" class = "options"> logout </a>
+                {% else %}
+				<a href = "/login" class = "options"> Log in </a>
+				 |
+				<a href = "/signup" class = "options"> Signup </a>
+                {% endif %}
+			</div>
+		</div>
+
+        <table align = 'center' border="0px solid" width = "80%"  style="min-width : 500px; margin-top:3%;">
+            <tr>
+                <td colspan="2" align="center">
+                    <h1>Edit Profile</h1>
+                </td>
+            </tr>
+            <form method="post" action="/profile/edit"  enctype="multipart/form-data">
+            <tr style="">
+                <td id="sidebar" width = "25%" style="vertical-align: top; padding-top:5%; ">
+                    <div  align = "center">
+                    <img src="/pic?name=" + {{profile.id}} height = "200px" align = "center"/>
+                    <input type="file" name="photo" />
+                    </div>
+                    <div id = 'menu'>
+                    <a href = "#" onclick="display('personal');">Personal</a>
+                    <a href = "#">Qualifications</a>
+                    <a href = "#" onclick="display('achievements');">Achievements</a>
+                    <a href = "#" onclick="display('publications');">Publications</a>
+                    <a href = "#" onclick="display('contact');">Contact</a>
+                    </div>
+                </td>
+                <td  style="padding-left : 50px;">
+                    <div id="content">
+                        <p class  = "personal"> Name :  <input type = "text" name = "name"/></p>
+                        <p class  = "personal"> Age : <input type = "text" name = "age"/></p>
+                        <p class = "contact" > Email : <input type = "email" name = "email"/> </p>
+                        <p class = "achievements" >Achievements : <input type = "text" name = "achievements"/></p>
+                        <p class = "contact" > Phone : <input type = "text" name = "contact`"/></p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan='2' align='right'><input type="submit" value="Save"/></td>
+            </tr>
+            </form>
+        </table>
+
+    </body>
+</html>

@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <style type = "text/css">
+            td, th {
+                font-size: 20px;
+                 padding :10px;   
+            }
+        </style>
+    </head>
+    
+    <body>
+        <form action="/signup" method="post">
+        <table align = 'center' width = "50%" style="margin-top:100px;border:0px solid;">
+            <tr>
+                <th width="50%"> Username </th>
+                <td> <input type = "text" name = 'username' /> </td>
+            </tr>
+            
+            <tr>
+                <th width="50%"> Name </th>
+                <td> <input type = "text" name = 'name' /> </td>
+            </tr>
+            
+            <tr>
+                <th> Password </th>
+                <td> <input type = "password" name = 'password' /> </td>
+            </tr>
+            
+            <tr>
+                <th> Confirm Password </th>
+                <td> <input type = "password" name = 'confirm' /> </td>
+            </tr>
+            
+            <tr>
+                <td colspan="2" rowspan="2" align='center' style="padding:50px;"> <input type = "submit"/></td>
+            </tr>
+            
+        </table>
+        </form>
+    </body>
+</html>

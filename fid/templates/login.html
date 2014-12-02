@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <style type = "text/css">
+            td, th {
+                font-size: 20px;
+                 padding :10px;   
+            }
+        </style>
+    </head>
+    
+    <body>
+        <form action="/login" method="post">
+        <table align = 'center' width = "50%" style="margin-top:100px;">
+            <tr>
+                <th> Username </th>
+                <td> <input type = "text" name = 'username' /> </td>
+            </tr>
+            <tr>
+                <th> Password </th>
+                <td> <input type = "password" name = 'password' /> </td>
+            </tr>
+            <tr>
+                <td colspan="2" align = "center" style="color:red;">{{error}}</td>
+            </tr>
+            <tr>
+                <td colspan="2" rowspan="2" align='center'> <input type = "submit" value = "Log In"/></td>
+            </tr>
+            
+        </table>
+        </form>
+    </body>
+</html>
